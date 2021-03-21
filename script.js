@@ -8,13 +8,13 @@ function buildTimeBlocks(){
     for(var i=0;i<businessHours.length;i++){
         var timeBlock = businessHours[i]
         $("#timeBlocks").append(`<div class="row" >
-                                        <div class="col-4">
-                                                <p class="hour">${timeBlock}</p>
+                                        <div class="col-2 p-0">
+                                                <p class="hour p1-1 m-0">${timeBlock}</p>
                                         </div>
-                                        <div class="col-6">
-                                            <p class="description" id=${businessHours[i]}>Something</p>
+                                        <div class="col-4 p-0">
+                                            <p class="description p-1 m-0" id=${businessHours[i]}>Something</p>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-2 p-0">
                                             <button class="saveBtn"><i class="fas fa-calendar-day"></i></button>
                                         </div>
 
@@ -29,10 +29,10 @@ function setDynamicClassHour(){
 
     //Check current hour and splice the businessHours array to past and future hours
     for(var i=0;i<businessHours.length;i++){
-        if(businessHours[i] == currentHour){
+        if(businessHours[i] == "4PM"){
             pastHours = businessHours.splice(0,i)
             futureHours = businessHours.splice(1,businessHours.length-1)
-            $("#"+currentHour).addClass("present")
+            $("#4PM").addClass("present")
             }
         }
 
@@ -46,19 +46,48 @@ function setDynamicClassHour(){
     }
 
 }
- 
-
-$(".description").on("click",function(){
-    var description = $(this).text().trim()
-    console.log(description)
-})
-
-
 
 
 buildTimeBlocks()
 
 setDynamicClassHour()
+
+$("#timeBlocks").on("click",".description",function(){
+    var description = $(this)
+    .text()
+    .trim()
+
+    var pClass = $(this).attr("class")
+    var id = $(this).attr("id")
+    
+    var textInput = $("<textarea>")
+    .val(description)
+    .addClass(pClass)
+    .attr("id",id)
+
+    $(this).replaceWith(textInput)
+    textInput.trigger("focus")
+})
+
+$("#timeBlocks").on("blur", "textarea", function() {
+    var text = $(this)
+    .val()
+    .trim();
+
+    var pClass = $(this).attr("class")
+    var id = $(this).attr("id")
+
+    var p = $("<p>")
+    .addClass(pClass)
+    .text(text)
+    .attr("id",id)
+
+     $(this).replaceWith(p);
+
+     setDynamicClassHour()
+
+});
+
 
 
 
