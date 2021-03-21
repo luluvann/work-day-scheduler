@@ -7,12 +7,12 @@ $("#currentDay").text(currentDay)
 function buildTimeBlocks(){
     for(var i=0;i<businessHours.length;i++){
         var timeBlock = businessHours[i]
-        $("#timeBlocks").append(`<div class="row" >
+        $("#timeBlocks").append(`<div class="row d-flex justify-content-center" >
                                         <div class="col-2 p-0">
                                                 <p class="hour p1-1 m-0">${timeBlock}</p>
                                         </div>
                                         <div class="col-4 p-0">
-                                            <p class="description p-1 m-0" id=${businessHours[i]}>Something</p>
+                                            <p class="description p-1 m-0" id=${businessHours[i]}></p>
                                         </div>
                                         <div class="col-2 p-0">
                                             <button class="saveBtn"><i class="fas fa-calendar-day"></i></button>
