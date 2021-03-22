@@ -78,20 +78,31 @@ function buildHourlyEntry(date,id,description){
                 localStorage.setItem("workDayScheduler",JSON.stringify(workDayScheduler))
                 break;
             }
-
+            
             if(descriptionOverrided === false && i == workDayScheduler.length-1){
                 workDayScheduler.push({"date":date,"id":id,"description":description} )
                 localStorage.setItem("workDayScheduler",JSON.stringify(workDayScheduler))
             }
-            
+
             i++
         } 
     }   
 }
 
+function retrieveSavedHourlyTask(){
+    var workDayScheduler = getLocalStorage();
+    if(workDayScheduler){
+        for(var i = 0; i < workDayScheduler.length; i++){
+            $("#"+workDayScheduler[i].id).text(workDayScheduler[i].description)
+        }
+    }
+}
 
+//functions called at page load
 
 buildTimeBlocks()
+
+retrieveSavedHourlyTask()
 
 setDynamicClassHour()
 
