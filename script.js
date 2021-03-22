@@ -1,5 +1,6 @@
 var currentDay = moment().format("dddd, MMMM Do YYYY");
 var currentDayShort = moment().format("L");
+var yesterdayShort = moment().subtract(1, 'days').format("L")
 var currentHour = moment().format("hA")
 var businessHours = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"]
 
@@ -56,6 +57,15 @@ function clearLocalStorage(){
     localStorage.removeItem("workDayScheduler")
 }
 
+function clearLocalStorageNewDay(){
+    var workDayScheduler = getLocalStorage();
+    if(workDayScheduler){
+        if(workDayScheduler[0].date == yesterdayShort){
+            clearLocalStorage()
+        }
+    }
+}
+
 function buildHourlyEntry(date,id,description){
     var workDayScheduler = getLocalStorage()    
     if(!workDayScheduler){
@@ -100,10 +110,10 @@ function retrieveSavedHourlyTask(){
 
 //functions called at page load
 
+
 buildTimeBlocks()
-
+clearLocalStorageNewDay()
 retrieveSavedHourlyTask()
-
 setDynamicClassHour()
 
 $("#timeBlocks").on("click",".description",function(){
