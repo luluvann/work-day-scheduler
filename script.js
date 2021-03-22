@@ -30,10 +30,10 @@ function setDynamicClassHour(){
 
     //Check current hour and splice the businessHours array to past and future hours
     for(var i=0;i<businessHours.length;i++){
-        if(businessHours[i] == "4PM"){
+        if(businessHours[i] == currentHour){
             pastHours = businessHours.splice(0,i)
             futureHours = businessHours.splice(1,businessHours.length-1)
-            $("#4PM").addClass("present")
+            $("#"+currentHour).addClass("present")
             }
         }
 
@@ -148,5 +148,4 @@ $("#timeBlocks").on("click",".saveBtn", function() {
     var id = btnId.split("-")[1]
     var description = $("#"+id).text()
     buildHourlyEntry(currentDayShort,id,description)
-
 });
